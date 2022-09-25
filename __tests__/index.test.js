@@ -1,16 +1,15 @@
-import diff from '../src/index.js';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
 import path, { dirname } from 'path';
+import diff from '../src/index.js';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const filename = fileURLToPath(import.meta.url);
+const dir = dirname(filename);
 
-const getFixturePath = (filename) =>
-  path.join(__dirname, '..', '__fixtures__', filename);
+const getFixturePath = (file) => path.join(dir, '..', '__fixtures__', file);
 
 test('compare file with string', () => {
   expect(diff(getFixturePath('file1.json'), getFixturePath('file2.json'))).toBe(
-    fs.readFileSync(getFixturePath('result.txt'), 'utf8')
+    fs.readFileSync(getFixturePath('result.txt'), 'utf8'),
   );
 });

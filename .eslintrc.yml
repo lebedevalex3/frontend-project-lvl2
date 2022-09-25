@@ -11,4 +11,4 @@ rules:
   no-console: 0
   import/extensions: 0
 
-plugins: jest
+plugins: [jest]
