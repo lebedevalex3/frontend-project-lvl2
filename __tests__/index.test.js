@@ -10,6 +10,7 @@ const getFixturePath = (file) => path.join(dir, '..', '__fixtures__', file);
 
 test('compare file with string', () => {
   expect(diff(getFixturePath('file1.json'), getFixturePath('file2.json'))).toBe(
-    fs.readFileSync(getFixturePath('result.txt'), 'utf8'),
+    // eslint-disable-next-line comma-dangle
+    fs.readFileSync(getFixturePath('result.txt'), 'utf8')
   );
 });
