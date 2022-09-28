@@ -1,11 +1,17 @@
 import fs from 'fs';
 import _ from 'lodash';
-import path from 'path';
+import path, { extname } from 'path';
+import parser from './parsers.js';
+
+const getAbsolutePath = (filePath) => path.resolve(process.cwd(), filePath);
 
 const diff = (filePath1, filePath2) => {
-  const getAbsolutePath = (filePath) => path.resolve(process.cwd(), filePath);
-  const obj1 = JSON.parse(fs.readFileSync(getAbsolutePath(filePath1), 'utf8'));
-  const obj2 = JSON.parse(fs.readFileSync(getAbsolutePath(filePath2), 'utf8'));
+  const path1 = getAbsolutePath(filePath1);
+  const format1 = extname(path1);
+  const path2 = getAbsolutePath(filePath2);
+  const format2 = extname(path2);
+  const obj1 = parser(fs.readFileSync(path1, 'utf8'), format1);
+  const obj2 = parser(fs.readFileSync(path2, 'utf8'), format2);
 
   const allKeys = _.uniq([...Object.keys(obj1), ...Object.keys(obj2)]);
 
