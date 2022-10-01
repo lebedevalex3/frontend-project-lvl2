@@ -1,9 +1,50 @@
 import fs from 'fs';
-import _ from 'lodash';
+// import _ from 'lodash';
 import path, { extname } from 'path';
 import parser from './parsers.js';
+import buildTree from './buildTree.js';
+import stringify from './stringify.js';
 
 const getAbsolutePath = (filePath) => path.resolve(process.cwd(), filePath);
+
+const render = (value) => {
+  const iter = (currentValue, depth = 1) => {
+    const bracket = ' '.repeat((depth - 1) * 4);
+    const lines = currentValue.map((entry) => {
+      const intend = ' '.repeat(depth * 4);
+      const intendWithSymbol = ' '.repeat(depth * 4 - 2);
+
+      switch (entry.type) {
+        case 'added':
+          return `${intendWithSymbol}+ ${entry.key}: ${stringify(
+            entry.object2,
+            depth
+          )}`;
+        case 'deleted':
+          return `${intendWithSymbol}- ${entry.key}: ${stringify(
+            entry.object1,
+            depth
+          )}`;
+        case 'unchanged':
+          return `${intend}${entry.key}: ${stringify(entry.object2, depth)}`;
+        case 'changed':
+          return `${intendWithSymbol}- ${entry.key}: ${stringify(
+            entry.object1,
+            depth
+          )} \n${intendWithSymbol}+ ${entry.key}: ${stringify(
+            entry.object2,
+            depth
+          )}`;
+        case 'object':
+          return `${intend}${entry.key}: ${iter(entry.children, depth + 1)}`;
+        default:
+          break;
+      }
+    });
+    return ['{', ...lines, `${bracket}}`].join('\n');
+  };
+  return iter(value);
+};
 
 const diff = (filePath1, filePath2) => {
   const path1 = getAbsolutePath(filePath1);
@@ -12,45 +53,8 @@ const diff = (filePath1, filePath2) => {
   const format2 = extname(path2);
   const obj1 = parser(fs.readFileSync(path1, 'utf8'), format1);
   const obj2 = parser(fs.readFileSync(path2, 'utf8'), format2);
-
-  const allKeys = _.uniq([...Object.keys(obj1), ...Object.keys(obj2)]);
-
-  const arrayOfPairs = allKeys.sort().map((elem) => {
-    if (Object.hasOwn(obj1, elem) && Object.hasOwn(obj2, elem)) {
-      if (obj1[elem] === obj2[elem]) return [elem, 'not changed'];
-      return [elem, 'changed'];
-    }
-    if (Object.hasOwn(obj1, elem) && !Object.hasOwn(obj2, elem)) {
-      return [elem, 'deleted'];
-    }
-    return [elem, 'added'];
-  });
-
-  const result = arrayOfPairs
-    .reduce((acc, elem) => {
-      const [key, status] = elem;
-      let updateString = '';
-      switch (status) {
-        case 'deleted':
-          updateString = `${acc}\n - ${key}: ${obj1[key]}`;
-          break;
-        case 'changed':
-          updateString = `${acc}\n - ${key}: ${obj1[key]}\n + ${key}: ${obj2[key]}`;
-          break;
-        case 'not changed':
-          updateString = `${acc}\n   ${key}: ${obj1[key]}`;
-          break;
-        case 'added':
-          updateString = `${acc}\n + ${key}: ${obj2[key]}`;
-          break;
-        default:
-          break;
-      }
-      return updateString;
-    }, '{')
-    .concat('\n}');
-
-  return result;
+  const tree = buildTree(obj1, obj2);
+  return render(tree);
 };
 
 export default diff;
