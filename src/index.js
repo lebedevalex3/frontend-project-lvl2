@@ -31,14 +31,14 @@ const render = (value) => {
           return `${intendWithSymbol}- ${entry.key}: ${stringify(
             entry.object1,
             depth
-          )} \n${intendWithSymbol}+ ${entry.key}: ${stringify(
+          )}\n${intendWithSymbol}+ ${entry.key}: ${stringify(
             entry.object2,
             depth
           )}`;
         case 'object':
           return `${intend}${entry.key}: ${iter(entry.children, depth + 1)}`;
         default:
-          break;
+          throw new Error(`Error: ${entry.type}`);
       }
     });
     return ['{', ...lines, `${bracket}}`].join('\n');
