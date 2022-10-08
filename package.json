@@ -8,9 +8,9 @@
     "gendiff": "src/bin/gendiff.js"
   },
   "scripts": {
-    "test": "npx -n '--experimental-vm-modules  --no-warnings' jest",
-    "test-watch": "npx -n '--experimental-vm-modules  --no-warnings' jest --watchAll",
-    "coverage": "npx -n '--experimental-vm-modules  --no-warnings' jest --coverage"
+    "test": "npx jest",
+    "test-watch": "npx jest --watchAll",
+    "coverage": "npx jest --coverage"
   },
   "repository": {
     "type": "git",

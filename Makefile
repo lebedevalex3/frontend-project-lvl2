@@ -14,7 +14,7 @@ test:
 				npm test 
 
 test-coverage:
-				npm test --coverage --coverageProvider=v8
+				npx jest --coverage --coverageProvider=v8
 
 test-watch:
-				npm test --watchAllmake
+				npx jest --watch
