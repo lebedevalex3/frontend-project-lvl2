@@ -12,14 +12,14 @@ const variants = [
   {
     path1: 'file1.json',
     path2: 'file2.json',
-    resultPath: 'json_result.txt',
+    resultPath: 'stylish_result.txt',
     type: 'json',
     format: 'stylish',
   },
   {
     path1: 'file1.yml',
     path2: 'file2.yml',
-    resultPath: 'json_result.txt',
+    resultPath: 'stylish_result.txt',
     type: 'yaml',
     format: 'stylish',
   },
@@ -29,6 +29,13 @@ const variants = [
     resultPath: 'plain_result.txt',
     type: 'json',
     format: 'plain',
+  },
+  {
+    path1: 'file1.json',
+    path2: 'file2.json',
+    resultPath: 'json_result.txt',
+    type: 'json',
+    format: 'json',
   },
 ];
 

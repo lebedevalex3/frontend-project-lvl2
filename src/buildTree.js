@@ -3,6 +3,7 @@ import _ from 'lodash';
 const getKeys = (file1, file2) => {
   const keys1 = Object.keys(file1);
   const keys2 = Object.keys(file2);
+
   return _.sortBy(_.union(keys1, keys2));
 };
 
