@@ -32,4 +32,9 @@ const buildTree = (obj1, obj2) => {
   return tree;
 };
 
-export default buildTree;
+const tree = (obj1, obj2) => ({
+  type: 'root',
+  children: buildTree(obj1, obj2),
+});
+
+export default tree;

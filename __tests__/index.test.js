@@ -8,17 +8,37 @@ const dir = dirname(filename);
 
 const getFixturePath = (file) => path.join(dir, '..', '__fixtures__', file);
 
-test('compare file "JSON" with string', () => {
-  expect(
-    diff(getFixturePath('file1.json'), getFixturePath('file2.json'))
-  ).toEqual(
-    // eslint-disable-next-line comma-dangle
-    fs.readFileSync(getFixturePath('result.txt'), 'utf8')
-  );
-});
-test('compare file "YAML" with string', () => {
-  expect(diff(getFixturePath('file1.yml'), getFixturePath('file2.yml'))).toBe(
-    // eslint-disable-next-line comma-dangle
-    fs.readFileSync(getFixturePath('result.txt'), 'utf8')
-  );
-});
+const variants = [
+  {
+    path1: 'file1.json',
+    path2: 'file2.json',
+    resultPath: 'json_result.txt',
+    type: 'json',
+    format: 'stylish',
+  },
+  {
+    path1: 'file1.yml',
+    path2: 'file2.yml',
+    resultPath: 'json_result.txt',
+    type: 'yaml',
+    format: 'stylish',
+  },
+  {
+    path1: 'file1.json',
+    path2: 'file2.json',
+    resultPath: 'plain_result.txt',
+    type: 'json',
+    format: 'plain',
+  },
+];
+
+test.each(variants)(
+  'gendiff works correct for $type with $format',
+  ({ path1, path2, resultPath, format }) => {
+    const file1 = getFixturePath(path1);
+    const file2 = getFixturePath(path2);
+    const expected = fs.readFileSync(getFixturePath(resultPath), 'utf8');
+    const result = diff(file1, file2, format);
+    expect(result).toEqual(expected);
+  }
+);
