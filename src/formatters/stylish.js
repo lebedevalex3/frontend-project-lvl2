@@ -9,7 +9,7 @@ const stringify = (value, level = 1) => {
     const currentIndent = getIndent((depth + 1) * 4);
     const bracketIndent = getIndent(depth * 4);
     const lines = Object.entries(currentValue).map(
-      ([key, val]) => `${currentIndent}${key}: ${iter(val, depth + 1)}`
+      ([key, val]) => `${currentIndent}${key}: ${iter(val, depth + 1)}`,
     );
     return ['{', ...lines, `${bracketIndent}}`].join('\n');
   };
@@ -27,22 +27,22 @@ const renderObject = (value) => {
         case 'added':
           return `${intendWithSymbol}+ ${entry.key}: ${stringify(
             entry.object2,
-            depth
+            depth,
           )}`;
         case 'deleted':
           return `${intendWithSymbol}- ${entry.key}: ${stringify(
             entry.object1,
-            depth
+            depth,
           )}`;
         case 'unchanged':
           return `${intend}${entry.key}: ${stringify(entry.object2, depth)}`;
         case 'changed':
           return `${intendWithSymbol}- ${entry.key}: ${stringify(
             entry.object1,
-            depth
+            depth,
           )}\n${intendWithSymbol}+ ${entry.key}: ${stringify(
             entry.object2,
-            depth
+            depth,
           )}`;
         case 'object':
           return `${intend}${entry.key}: ${iter(entry.children, depth + 1)}`;

@@ -13,23 +13,23 @@ const renderPlain = (tree, parents = []) => {
   switch (tree.type) {
     case 'root': {
       const result = _.compact(
-        tree.children.flatMap((elem) => renderPlain(elem, keysOfParents))
+        tree.children.flatMap((elem) => renderPlain(elem, keysOfParents)),
       );
       return result.join('\n');
     }
     case 'object':
       return _.compact(
-        tree.children.flatMap((elem) => renderPlain(elem, keysOfParents))
+        tree.children.flatMap((elem) => renderPlain(elem, keysOfParents)),
       );
     case 'deleted':
       return `Property '${nameOfParents}' was removed`;
     case 'added':
       return `Property '${nameOfParents}' was added with value: ${stringify(
-        tree.object2
+        tree.object2,
       )}`;
     case 'changed':
       return `Property '${nameOfParents}' was updated. From ${stringify(
-        tree.object1
+        tree.object1,
       )} to ${stringify(tree.object2)}`;
 
     default:
