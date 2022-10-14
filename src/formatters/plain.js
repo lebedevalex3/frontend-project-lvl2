@@ -31,9 +31,10 @@ const renderPlain = (tree, parents = []) => {
       return `Property '${nameOfParents}' was updated. From ${stringify(
         tree.object1,
       )} to ${stringify(tree.object2)}`;
-
-    default:
+    case 'unchanged':
       return null;
+    default:
+      throw new Error(`Error: ${tree.type}`);
   }
 };
 

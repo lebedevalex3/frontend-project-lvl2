@@ -1,13 +1,15 @@
 import _ from 'lodash';
 
-const getIndent = (value) => ' '.repeat(value);
+const indent = (depth, isSymbol = false, spacesCount = 4) => (isSymbol
+  ? ' '.repeat(depth * spacesCount - 2)
+  : ' '.repeat(depth * spacesCount));
 
 const stringify = (value, level = 1) => {
   const iter = (currentValue, depth) => {
     if (!_.isObject(currentValue)) return currentValue;
 
-    const currentIndent = getIndent((depth + 1) * 4);
-    const bracketIndent = getIndent(depth * 4);
+    const currentIndent = indent(depth + 1);
+    const bracketIndent = indent(depth);
     const lines = Object.entries(currentValue).map(
       ([key, val]) => `${currentIndent}${key}: ${iter(val, depth + 1)}`,
     );
@@ -18,10 +20,10 @@ const stringify = (value, level = 1) => {
 
 const renderObject = (value) => {
   const iter = (currentValue, depth = 1) => {
-    const bracket = ' '.repeat((depth - 1) * 4);
+    const bracket = indent(depth - 1);
     const lines = currentValue.map((entry) => {
-      const intend = ' '.repeat(depth * 4);
-      const intendWithSymbol = ' '.repeat(depth * 4 - 2);
+      const intend = indent(depth);
+      const intendWithSymbol = indent(depth, true);
 
       switch (entry.type) {
         case 'added':
@@ -54,5 +56,4 @@ const renderObject = (value) => {
   };
   return iter(value);
 };
-
 export default renderObject;

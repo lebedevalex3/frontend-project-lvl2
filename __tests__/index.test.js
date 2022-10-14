@@ -1,7 +1,7 @@
 import fs from 'fs';
 import { fileURLToPath } from 'url';
 import path, { dirname } from 'path';
-import diff from '../src/index.js';
+import diff from '../index.js';
 
 const filename = fileURLToPath(import.meta.url);
 const dir = dirname(filename);

@@ -1,11 +1,11 @@
 {
   "name": "@hexlet/code",
   "version": "1.0.0",
-  "description": "[![Actions Status](https://github.com/lebedevalex3/frontend-project-lvl2/workflows/hexlet-check/badge.svg)](https://github.com/lebedevalex3/frontend-project-lvl2/actions)",
-  "main": "src/index.js",
+  "description": "Package that shows difference between two objects",
+  "main": "src/gendiff.js",
   "type": "module",
   "bin": {
-    "gendiff": "src/bin/gendiff.js"
+    "gendiff": "bin/gendiff.js"
   },
   "scripts": {
     "test": "npx jest",
