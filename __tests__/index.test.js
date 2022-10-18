@@ -10,44 +10,41 @@ const getFixturePath = (file) => path.join(dir, '..', '__fixtures__', file);
 
 const variants = [
   {
-    path1: 'file1.json',
-    path2: 'file2.json',
     resultPath: 'stylish_result.txt',
     type: 'json',
     format: 'stylish',
   },
   {
-    path1: 'file1.yml',
-    path2: 'file2.yml',
     resultPath: 'stylish_result.txt',
     type: 'yaml',
     format: 'stylish',
   },
   {
-    path1: 'file1.json',
-    path2: 'file2.json',
     resultPath: 'plain_result.txt',
     type: 'json',
     format: 'plain',
   },
   {
-    path1: 'file1.json',
-    path2: 'file2.json',
     resultPath: 'json_result.txt',
     type: 'json',
     format: 'json',
+  },
+  {
+    resultPath: 'stylish_result.txt',
+    type: 'json',
+    format: null,
   },
 ];
 
 test.each(variants)(
   'gendiff works correct for $type with $format',
   ({
-    path1, path2, resultPath, format,
+    resultPath, format, type,
   }) => {
-    const file1 = getFixturePath(path1);
-    const file2 = getFixturePath(path2);
+    const file1 = getFixturePath(`file1.${type}`);
+    const file2 = getFixturePath(`file2.${type}`);
     const expected = fs.readFileSync(getFixturePath(resultPath), 'utf8');
-    const result = diff(file1, file2, format);
+    const result = format ? diff(file1, file2, format) : diff(file1, file2);
     expect(result).toEqual(expected);
   },
 );

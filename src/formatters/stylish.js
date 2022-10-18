@@ -6,7 +6,9 @@ const indent = (depth, isSymbol = false, spacesCount = 4) => (isSymbol
 
 const stringify = (value, level = 1) => {
   const iter = (currentValue, depth) => {
-    if (!_.isObject(currentValue)) return currentValue;
+    if (!_.isObject(currentValue)) {
+      return currentValue;
+    }
 
     const currentIndent = indent(depth + 1);
     const bracketIndent = indent(depth);
