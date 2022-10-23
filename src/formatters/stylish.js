@@ -30,22 +30,22 @@ const renderObject = (value) => {
       switch (entry.type) {
         case 'added':
           return `${intendWithSymbol}+ ${entry.key}: ${stringify(
-            entry.object2,
+            entry.value2,
             depth,
           )}`;
         case 'deleted':
           return `${intendWithSymbol}- ${entry.key}: ${stringify(
-            entry.object1,
+            entry.value1,
             depth,
           )}`;
         case 'unchanged':
-          return `${intend}${entry.key}: ${stringify(entry.object2, depth)}`;
+          return `${intend}${entry.key}: ${stringify(entry.value2, depth)}`;
         case 'changed':
           return `${intendWithSymbol}- ${entry.key}: ${stringify(
-            entry.object1,
+            entry.value1,
             depth,
           )}\n${intendWithSymbol}+ ${entry.key}: ${stringify(
-            entry.object2,
+            entry.value2,
             depth,
           )}`;
         case 'object':

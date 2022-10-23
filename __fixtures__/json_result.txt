@@ -6,33 +6,33 @@
       "children": [
         {
           "key": "follow",
-          "object2": false,
+          "value2": false,
           "type": "added"
         },
         {
           "key": "setting1",
-          "object2": "Value 1",
+          "value2": "Value 1",
           "type": "unchanged"
         },
         {
           "key": "setting2",
-          "object1": 200,
+          "value1": 200,
           "type": "deleted"
         },
         {
           "key": "setting3",
-          "object1": true,
-          "object2": null,
+          "value1": true,
+          "value2": null,
           "type": "changed"
         },
         {
           "key": "setting4",
-          "object2": "blah blah",
+          "value2": "blah blah",
           "type": "added"
         },
         {
           "key": "setting5",
-          "object2": {
+          "value2": {
             "key5": "value5"
           },
           "type": "added"
@@ -45,8 +45,8 @@
               "children": [
                 {
                   "key": "wow",
-                  "object1": "",
-                  "object2": "so much",
+                  "value1": "",
+                  "value2": "so much",
                   "type": "changed"
                 }
               ],
@@ -54,12 +54,12 @@
             },
             {
               "key": "key",
-              "object2": "value",
+              "value2": "value",
               "type": "unchanged"
             },
             {
               "key": "ops",
-              "object2": "vops",
+              "value2": "vops",
               "type": "added"
             }
           ],
@@ -73,21 +73,21 @@
       "children": [
         {
           "key": "baz",
-          "object1": "bas",
-          "object2": "bars",
+          "value1": "bas",
+          "value2": "bars",
           "type": "changed"
         },
         {
           "key": "foo",
-          "object2": "bar",
+          "value2": "bar",
           "type": "unchanged"
         },
         {
           "key": "nest",
-          "object1": {
+          "value1": {
             "key": "value"
           },
-          "object2": "str",
+          "value2": "str",
           "type": "changed"
         }
       ],
@@ -95,7 +95,7 @@
     },
     {
       "key": "group2",
-      "object1": {
+      "value1": {
         "abc": 12345,
         "deep": {
           "id": 45
@@ -105,7 +105,7 @@
     },
     {
       "key": "group3",
-      "object2": {
+      "value2": {
         "deep": {
           "id": {
             "number": 45

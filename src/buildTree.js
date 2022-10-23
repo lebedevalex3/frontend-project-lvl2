@@ -11,11 +11,11 @@ const buildTree = (val1, val2) => {
   const unionKeys = getKeys(val1, val2);
   const tree = unionKeys.map((key) => {
     if (!_.has(val1, key)) {
-      return { key, object2: val2[key], type: 'added' };
+      return { key, value2: val2[key], type: 'added' };
     }
 
     if (!_.has(val2, key)) {
-      return { key, object1: val1[key], type: 'deleted' };
+      return { key, value1: val1[key], type: 'deleted' };
     }
     if (_.isPlainObject(val1[key]) && _.isPlainObject(val2[key])) {
       return {
@@ -27,13 +27,13 @@ const buildTree = (val1, val2) => {
     if (val1[key] !== val2[key]) {
       return {
         key,
-        object1: val1[key],
-        object2: val2[key],
+        value1: val1[key],
+        value2: val2[key],
         type: 'changed',
       };
     }
 
-    return { key, object2: val2[key], type: 'unchanged' };
+    return { key, value2: val2[key], type: 'unchanged' };
   });
   return tree;
 };

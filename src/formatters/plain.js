@@ -29,12 +29,12 @@ const renderPlain = (tree, parents = []) => {
       return `Property '${nameOfParents}' was removed`;
     case 'added':
       return `Property '${nameOfParents}' was added with value: ${stringify(
-        tree.object2,
+        tree.value2,
       )}`;
     case 'changed':
       return `Property '${nameOfParents}' was updated. From ${stringify(
-        tree.object1,
-      )} to ${stringify(tree.object2)}`;
+        tree.value1,
+      )} to ${stringify(tree.value2)}`;
     case 'unchanged':
       return null;
     default:
